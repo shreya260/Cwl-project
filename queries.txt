@@ -1,0 +1,123 @@
+?- use_module(library(lib)).
+true.
+
+?- pack_install(bio_db).
+true.
+
+?- pack_install(bio_analytics).
+true.
+
+?- lib(&bio_db(hs(unip))).
+true.
+
+?- map_unip_hgnc_unip(Hgnc,Unip).
+Hgnc = 5,
+Unip = 'M0R009';Unip = 'P04217' ;
+Hgnc = 7,
+Unip = 'F5H1E8' ;
+Hgnc = 7,
+Unip = 'F8W7L3' ;
+Hgnc = 7,
+Unip = 'H0YFH1' ;
+Hgnc = 7,
+Unip = 'P01023' ;
+Hgnc = 16,
+Unip = 'A0A087WY93' ;
+Hgnc = 16,
+Unip = 'G3V3A0' ;
+Hgnc = 16,
+Unip = 'G3V595' .
+
+?- lib(&bio_db(hs(hgnc))).
+true.
+
+?- map_hgnc_symb_hgnc('LMTK3',Hgnc), map_unip_hgnc_unip(Hgnc,Unip).
+Hgnc = 19295,
+Unip = 'A0A0A0MQW5' ;
+Hgnc = 19295,
+Unip = 'A0A3B3IRV9' ;
+Hgnc = 19295,
+Unip = 'A0A3B3ISL5' ;
+Hgnc = 19295,
+Unip = 'A0A3B3ITQ7' ;
+Hgnc = 19295,
+Unip = 'Q96Q04'.
+
+?- map_hgnc_symb_hgnc(Symb ,5), map_unip_hgnc_unip(5,Unip).
+Symb = 'A1BG',
+Unip = 'M0R009' ;
+Symb = 'A1BG',
+Unip = 'P04217'.
+
+?- findall(Hgnc, map_unip_hgnc_unip(Hgnc,Unip), Hgnclist), sort(Hgnclist, HgncID).
+Hgnclist = [5, 5, 7, 7, 7, 7, 16, 16, 16|...],
+HgncID = [5, 7, 16, 17, 18, 19, 20, 21, 23|...].
+
+?- lib( & bio_db(hs(gont)) ).
+true.
+
+?- edge_gont_is_a(G1,G2), map_gont_gont_gonm( G1, N1 ), map_gont_gont_gonm( G2, N2 ).
+G1 = 1,
+G2 = 48308,
+N1 = 'mitochondrion inheritance',
+N2 = 'organelle inheritance' ;
+G1 = 1,
+G2 = 48311,
+N1 = 'mitochondrion inheritance',
+N2 = 'mitochondrion distribution' ;
+G1 = 2,
+G2 = 7005,
+N1 = 'mitochondrial genome maintenance',
+N2 = 'mitochondrion organization' ;
+G1 = 3,
+G2 = 8150,
+N1 = reproduction,
+N2 = biological_process ;
+G1 = 6,
+G2 = 5385,
+N1 = 'high-affinity zinc transmembrane transporter activity',
+N2 = 'zinc ion transmembrane transporter activity' ;
+G1 = 7,
+G2 = 5385,
+N1 = 'low-affinity zinc ion transmembrane transporter activity',
+N2 = 'zinc ion transmembrane transporter activity' .
+
+%% edge_gont_part_of( ?Part, ?Whole ).
+%
+%  Part is part of Whole (GO hirerchical relation).
+%
+?- edge_gont_part_of( A, B ),\+ edge_gont_consists_of( B, A).
+% prolog DB:table gont:edge_gont_part_of/2 is not installed, but the zipped prolog db exists. Shall it be created from this (Y/n) ? 
+|: % Continuing with: yes
+% Delete the zip file: 'c:/users/dell/appdata/roaming/swi-prolog/pack/bio_db_repo/data/hs/graphs/gont/edge_gont_part_of.pl.zip' (y/N) ? 
+|: % Continuing with: yes
+% prolog DB:table gont:edge_gont_consists_of/2 is not installed, but the zipped prolog db exists. Shall it be created from this (Y/n) ? 
+|: % Continuing with: yes
+% Delete the zip file: 'c:/users/dell/appdata/roaming/swi-prolog/pack/bio_db_repo/data/hs/graphs/gont/edge_gont_consists_of.pl.zip' (y/N) ? 
+|: % Continuing with: yes
+false.
+
+% Map predicate from GO terms to approved HGNC Symbol.
+?- map_gont_gont_symb( 'GO:0003674', Symb ).
+Symb = 'A1BG' ;
+Symb = 'AAAS' ;
+Symb = 'AARSD1' .
+
+% Map predicate from gene ontology terms to GO term names.
+?- map_gont_gont_gonm( 'GO:0004674', A ).
+A = 'protein serine/threonine kinase activity'.
+
+% Map predicate from HGNC symbols to GO terms.
+?- map_gont_symb_gont( 'LMTK3', Symb ).
+Symb = 'GO:0003674' ;
+Symb = 'GO:0004674' ;
+Symb = 'GO:0004713' ;
+Symb = 'GO:0005524' ;
+Symb = 'GO:0005575' ;
+Symb = 'GO:0006468' ;
+Symb = 'GO:0010923' ;
+Symb = 'GO:0016021' ;
+Symb = 'GO:0018108'.
+
+
+
