@@ -119,5 +119,102 @@ Symb = 'GO:0010923' ;
 Symb = 'GO:0016021' ;
 Symb = 'GO:0018108'.
 
+?-  edge_gont_is_a(139,G2), map_gont_gont_gonm( 139, N1 ), map_gont_gont_gonm( G2, N2 ).
+G2 = 44431,
+N1 = 'Golgi membrane',
+N2 = 'Golgi apparatus part' ;
+G2 = 98588,
+N1 = 'Golgi membrane',
+N2 = 'bounding membrane of organelle'.
+
+?- lib( & bio_db(hs(ncbi)) ).
+true.
+
+?- map_ncbi_ensp_entz( 'ENSP00000270238', Entz ).
+Entz = 114783.
+
+% Map predicate from RNA nucleic sequence to HGNC symbol.
+?- map_ncbi_rnuc_symb( 'BC140794', Symb ).
+Symb = 'CEP170'.
+
+% Map predicate from DNA nucleic sequence to HGNC symbol.
+?- map_ncbi_dnuc_symb( 'AL669831', Symb ).
+Symb = 'CICP3' ;
+Symb = 'FAM41C' ;
+Symb = 'FAM87B' ;
+Symb = 'LINC00115' ;
+Symb = 'LINC01128' ;
+Symb = 'LINC01409' ;
+Symb = 'LOC100133331' ;
+Symb = 'LOC100288069' ;
+Symb = 'LOC107984841' ;
+Symb = 'LOC107984847' ;
+Symb = 'LOC107984849' ;
+Symb = 'LOC107984850' ;
+Symb = 'OR4F16' ;
+Symb = 'PIRC2' ;
+Symb = 'RNU6-1199P' .
+
+?- map_ncbi_rnuc_symb( 'BC140794', Symb ), map_hgnc_symb_hgnc(Symb ,Hgnc), map_unip_hgnc_unip(Hgnc, Unip).
+Symb = 'CEP170',
+Hgnc = 28920,
+Unip = 'E5RFU8' ;
+Symb = 'CEP170',
+Hgnc = 28920,
+Unip = 'E5RG47' ;
+Symb = 'CEP170',
+Hgnc = 28920,
+Unip = 'E5RGW7' ;
+Symb = 'CEP170',
+Hgnc = 28920,
+Unip = 'E5RIH6' ;
+Symb = 'CEP170',
+Hgnc = 28920,
+Unip = 'E5RJT5' ;
+Symb = 'CEP170',
+Hgnc = 28920,
+Unip = 'E7EMW0' .
+
+?- map_ncbi_dnuc_symb( 'AL669831', Symb ), map_hgnc_symb_hgnc(Symb ,Hgnc), map_unip_hgnc_unip(Hgnc, Unip).
+Symb = 'OR4F16',
+Hgnc = 15079,
+Unip = 'Q6IEY1' ;
+false.
+
+?- lib(bio_analytics).
+true.
+
+?- lib(gene_family/3).
+true.
+
+?- gene_family( autophagy, human, Auto ), length( Auto, Len ).
+Auto = ['AMBRA1', 'APOL1', 'ARNT', 'ARSA', 'ARSB', 'ATF4', 'ATF6', 'ATG10', 'ATG12'|...],
+Len = 232.
+
+?- lib(&bio_db(mouse(mgim))).
+true.
+
+?- lib( &bio_db(mouse(gont)) ).
+true.
+
+?- go_org_symbol(mouse,2,Symb),write(Symb),nl,fail.
+Msto1
+Mef2a
+Akt3
+Mgme1
+Mpv17
+Opa1
+Slc25a33
+Slc25a36
+Tymp
+Mrpl15
+Mrpl17
+Mrpl39
+false.
+
+?- gene_family( autophagy, human, Msto1 ), length( Msto1, Len ).
+Msto1 = ['AMBRA1', 'APOL1', 'ARNT', 'ARSA', 'ARSB', 'ATF4', 'ATF6', 'ATG10', 'ATG12'|...],
+Len = 232.
+
 
 
